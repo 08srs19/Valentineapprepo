@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Will You Be My Valentine?</title>
+<style>
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#ff758c,#ff7eb3);text-align:center;color:white;overflow:hidden;}
+img{margin-top:40px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.3);}
+h1{margin-top:20px;font-size:40px;}
+img{margin-top:40px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.3);animation:photoFloat 4s ease-in-out infinite, fadeIn 2s ease;}
+h1{margin-top:20px;font-size:40px;}
+.buttons{margin-top:30px;display:flex;justify-content:center;align-items:center;gap:40px;}
+button{padding:15px 30px;font-size:18px;border:none;border-radius:30px;cursor:pointer;}
+#yes{background:white;color:#ff4d6d;}
+#no{background:#ff4d6d;color:white;}
+.heart{position:fixed;bottom:-20px;font-size:20px;animation:float 6s linear infinite;}
+@keyframes float{from{transform:translateY(0);opacity:1;}to{transform:translateY(-100vh);opacity:0;}}
+@keyframes photoFloat{0%{transform:translateY(0) scale(1);} 50%{transform:translateY(-12px) scale(1.05);} 100%{transform:translateY(0) scale(1);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+/* Envelope */
+#envelope-container{position:relative;margin-top:50px;}
+#envelope{width:200px;cursor:pointer;transition:transform 1s ease;}
+#envelope.open{transform:rotateX(180deg);}
+#letter{margin-top:20px;font-size:22px;color:#ff4d6d;display:none;text-align:center;max-width:300px;margin-left:auto;margin-right:auto;}
+</style>
+</head>
+</style>
+</head>
+<body>
+<img src='images/V1.jpeg' alt='My Love' width='300' height='350'>
+<h1 style='color:black;'>💖 Will You Be My Valentine? 💖</h1>
+<div class='buttons'>
+  <button id='yes' onclick='yesClicked()'>YES 💕</button>
+  <button id='no' onmouseover='moveNo()'>NO 😜</button>
+</div>
+<script>
+var colors=['#ffe6ec', '#ffb3c6', '#ff8fab', '#ff5d8f', '#e63946', '#ff5d8f', '#ff8fab', '#ffb3c6'];
+var i=0;
+setInterval(function(){
+  document.body.style.background=colors[i];
+  i=(i+1)%colors.length;
+},1000);
+function moveNo(){
+  var n = document.getElementById('no');
+  var x = Math.random() * 200 + 100; // jump far away
+  var y = Math.random() * 100 - 50;
+  n.style.position = 'relative';
+  n.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+}
+function yesClicked(){
+  document.body.innerHTML = "<h1 style='color:black;'>💌 Click the Envelope 💌</h1>" +
+    "<div id='envelope-container'>" +
+    "<img id='envelope' src='images/envelope.jpeg' />" +
+    "<div id='letter'></div>" +
+    "</div>";
+  document.getElementById('envelope').onclick = openEnvelope;
+}
+// Open envelope and reveal letter word by word with motion
+function openEnvelope(){
+  var env = document.getElementById('envelope');
+  env.classList.add('open');
+var container = document.getElementById('envelope-container');
+env.remove();
+  var letterDiv = document.getElementById('letter');
+  letterDiv.style.display = 'flex';
+  letterDiv.style.flexDirection = 'column';
+  letterDiv.style.alignItems = 'center';
+  letterDiv.style.justifyContent = 'center';
+  letterDiv.style.margin = '50px auto';
+  letterDiv.style.padding = '20px';
+  letterDiv.style.maxWidth = '1000px';
+  letterDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+  letterDiv.style.borderRadius = '15px';
+  letterDiv.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+  letterDiv.style.fontFamily = '"Segoe Script", cursive';
+  letterDiv.style.fontSize = '26px';
+  letterDiv.style.color = 'black';
+  letterDiv.style.textAlign = 'center';
+  letterDiv.style.lineHeight = '1.2em';
+  var lines=[
+    'My Dearest Chakku,',
+    'Every moment with you is a treasure,',
+    'I cherish your smile, your laugh, your heart,',
+    'You are my everything.',
+    'Forever yours rukku ❤️'
+  ];
+  var index=0;
+  function showNext(){
+    if(index >= lines.length) return;
+    var p = document.createElement('p');
+    p.textContent = lines[index];
+    p.style.margin = '4px 0';
+    p.style.opacity = 0;
+    p.style.transform = 'translateY(20px)';
+    p.style.transition = 'all 1s ease';
+    letterDiv.appendChild(p);
+    setTimeout(function(){
+      p.style.opacity=1;
+      p.style.transform='translateY(0)';
+    },50);
+    index++;
+    setTimeout(showNext, 1000);
+  }
+  showNext();
+}
+setInterval(function(){
+  var h=document.createElement('div');
+  h.className='heart';
+  h.innerHTML='❤️';
+  h.style.left=Math.random()*100+'vw';
+  document.body.appendChild(h);
+  setTimeout(function(){h.remove();},6000);
+},300);
+</script>
+</body>
+</html>
